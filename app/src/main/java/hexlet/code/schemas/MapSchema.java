@@ -1,9 +1,9 @@
 package hexlet.code.schemas;
 
-public class NumberSchema extends BaseSchema {
+public class MapSchema extends BaseSchema {
 
-    public NumberSchema(Integer state, Integer isPositive, Integer intStart, Integer intEnd) {
-        super(null, null, "", "", isPositive, intStart, intEnd, null);
+    public MapSchema(Integer state, Integer newSizeOf) {
+        super(null, null, "", "", null, null, null, null);
     }
 
     @Override
@@ -17,7 +17,7 @@ public class NumberSchema extends BaseSchema {
     }
 
     @Override
-    public StringSchema minLength(Integer emptyNum) {
+    public StringSchema minLength(Integer minlength)  {
         return null;
     }
 
@@ -28,23 +28,17 @@ public class NumberSchema extends BaseSchema {
 
     @Override
     public NumberSchema positive() {
-        if (isPositive == null) {
-            this.isPositive = 1;
-        } else {
-            this.isPositive = -this.isPositive;
-        }
-        return this;
+        return null;
     }
 
     @Override
     public NumberSchema range(Integer intStart, Integer intEnd) {
-        this.intStart = intStart;
-        this.intEnd = intEnd;
-        return this;
+        return null;
     }
 
     @Override
     public MapSchema sizeof(Integer newSizeOf) {
-        return null;
+        this.sizeof = newSizeOf;
+        return this;
     }
 }

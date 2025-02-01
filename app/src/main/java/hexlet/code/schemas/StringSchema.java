@@ -2,8 +2,8 @@ package hexlet.code.schemas;
 
 public class StringSchema extends BaseSchema {
 
-    public StringSchema (Integer state, Integer minlength, String str, String obj) {
-        super(state, minlength, str, obj, null, null, null);
+    public StringSchema(Integer state, Integer minlength, String str, String obj) {
+        super(state, minlength, str, obj, null, null, null, null);
     }
 
     @Override
@@ -35,6 +35,11 @@ public class StringSchema extends BaseSchema {
 
     @Override
     public NumberSchema range(Integer intStart, Integer intEnd) {
+        return null;
+    }
+
+    @Override
+    public MapSchema sizeof(Integer newSizeOf) {
         return null;
     }
 }

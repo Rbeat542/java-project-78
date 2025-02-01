@@ -1,11 +1,9 @@
 package hexlet.code;
 
-import hexlet.code.schemas.StringSchema;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import java.util.HashMap;
 
 public class TestAll {
 	private Validator v;
@@ -129,5 +127,41 @@ public class TestAll {
 		expected = false;
 		var res13 = schema2.isValid(11);
 		assertTrue(expected.equals(res13));
+	}
+
+	@Test
+	public void MapTest() {
+		var schema3 = v.map();
+
+		expected = true;
+		var res1 = schema3.isValid(null);
+		assertTrue(expected.equals(res1));
+
+		schema3.required();
+
+		expected = false;
+		var res2 = schema3.isValid(null);
+		assertTrue(expected.equals(res2));
+
+		expected = true;
+		var res3 = schema3.isValid(new HashMap<>());
+		assertTrue(expected.equals(res3));
+
+		expected = true;
+		var data = new HashMap<String, String>();
+		data.put("key1", "value1");
+		var res4 = schema3.isValid(data);
+		assertTrue(expected.equals(res4));
+
+		expected = false;
+		schema3.sizeof(2);
+		var res5 = schema3.isValid(data);
+		assertTrue(expected.equals(res5));
+
+		expected = true;
+		data.put("key2", "value2");
+		var res6 = schema3.isValid(data);
+		assertTrue(expected.equals(res6));
+
 	}
 }

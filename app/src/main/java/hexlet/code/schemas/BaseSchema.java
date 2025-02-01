@@ -1,5 +1,8 @@
 package hexlet.code.schemas;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class BaseSchema {
     public Integer state;
     public Integer minlength;
@@ -8,9 +11,10 @@ public abstract class BaseSchema {
     public Integer isPositive;
     public Integer intStart;
     public Integer intEnd;
+    public Integer sizeof;
 
     public BaseSchema(Integer state, Integer minlength, String str, String obj,
-                      Integer isPositive, Integer intStart, Integer intEnd) {
+                      Integer isPositive, Integer intStart, Integer intEnd, Integer sizeof) {
         this.state = state;
         this.minlength = minlength;
         this.str = str;
@@ -18,6 +22,7 @@ public abstract class BaseSchema {
         this.isPositive = isPositive;
         this.intStart = intStart;
         this.intEnd = intEnd;
+        this.sizeof = sizeof;
     }
 
     public void required() {
@@ -33,6 +38,10 @@ public abstract class BaseSchema {
         }
         if (this instanceof NumberSchema) {
             return isNumberValid(obj);
+        }
+
+        if (this instanceof MapSchema) {
+            return isMapValid(obj);
         }
         return false; // need exception
     }
@@ -86,8 +95,23 @@ public abstract class BaseSchema {
         return true;
     }
 
+    public Boolean isMapValid(Object obj) {
+        if ((obj == null && state != null) || (obj !=null && (obj instanceof Map) == false)) {
+            return false;
+        }
+        var objToMap = (Map) obj;
+        if (sizeof != null && objToMap.size() == sizeof) {
+            return true;
+        } else if (sizeof != null && objToMap.size() != sizeof) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public abstract StringSchema minLength(Integer newLength);
     public abstract StringSchema contains(String str);
     public abstract NumberSchema range(Integer intStart, Integer intEnd);
     public abstract NumberSchema positive();
+    public abstract MapSchema sizeof(Integer newSizeOf);
 }
