@@ -1,33 +1,40 @@
 package hexlet.code.schemas;
 
-public class StringSchema {
-	public State state;
-	public Integer minlength = 0;
-	public String str;
-	public String obj;
-	public Integer numbersOfValidatorCall;
+public class StringSchema extends BaseSchema {
 
-	public StringSchema() {
-		this.state = new RequiredOff(this);
-	}
+    public StringSchema (Integer state, Integer minlength, String str, String obj) {
+        super(state, minlength, str, obj, null, null, null);
+    }
 
-	public void setState(State state) {
-		this.state = state;
-	}
+    @Override
+    public void required() {
+        super.required();
+    }
 
-	public void required() {
-		state.required();
-	}
+    @Override
+    public Boolean isValid(Object obj) {
+        return super.isValid(obj);
+    }
 
-	public StringSchema minLength(Integer minlength) {
-		return state.minLength(minlength);
-	}
+    @Override
+    public StringSchema minLength(Integer minlength)  {
+        this.minlength = minlength;
+        return this;
+    }
 
-	public StringSchema contains(String str) {
-		return state.contains(str);
-	}
+    @Override
+    public StringSchema contains(String str) {
+        this.str = str;
+        return this;
+    }
 
-	public Boolean isValid(Object obj) { //
-		return state.isValid(obj);
-	}
+    @Override
+    public NumberSchema positive() {
+        return null;
+    }
+
+    @Override
+    public NumberSchema range(Integer intStart, Integer intEnd) {
+        return null;
+    }
 }

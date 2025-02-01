@@ -1,19 +1,15 @@
 package hexlet.code;
 
+import hexlet.code.schemas.BaseSchema;
+import hexlet.code.schemas.NumberSchema;
 import hexlet.code.schemas.StringSchema;
 
 public class Validator {
-	StringSchema schema;
-	Integer numbersOfValidatorCall = -1;
+    public final BaseSchema string() {
+        return new StringSchema(null, null, "", "");
+    }
 
-	public void Validator() {
-		//this.numbersOfValidatorCall = -1;
-	}
-
-	public StringSchema string() {
-		var schema = new StringSchema();
-		schema.numbersOfValidatorCall = this.numbersOfValidatorCall + 1;
-		return schema;
-	}
-
+    public final BaseSchema number() {
+        return new NumberSchema(null, null, null, null);
+    }
 }
