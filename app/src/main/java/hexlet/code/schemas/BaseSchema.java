@@ -27,7 +27,7 @@ public abstract class BaseSchema<T> {
         return this;
     }
 
-    public BaseSchema<T> contains(String str) {
+    public BaseSchema<T> contains(String someString) {
         return this;
     }
 }
