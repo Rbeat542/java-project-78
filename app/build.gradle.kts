@@ -32,5 +32,5 @@ tasks.jacocoTestReport {
         xml.required = true
         html.required = true
     }
-
+    }
 }
