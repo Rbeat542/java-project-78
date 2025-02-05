@@ -9,20 +9,24 @@ public final class NumberSchema extends BaseSchema<Integer> {
 
     @Override
     public Boolean isValid(Object obj) {
-        Integer valueOfObj = (Integer) obj;
-        if (state != null) {
-            if (obj == null) {
-                return false;
-            }
-            if (intEnd == null && intEnd == null && isPositive == null) {
-                return true;
-            }
-            if (intEnd == null || intEnd == null) {
-                return (valueOfObj / isPositive > 0);
-            }
-            return ((valueOfObj <= intEnd && valueOfObj >= intStart) && (valueOfObj / isPositive > 0));
+        Integer objToInteger;
+        try {
+            objToInteger = (Integer) obj;
+        } catch (Exception e) {
+            throw e;
         }
-        return true;
+
+        if (obj != null && obj != "" && isPositive != null && intStart != null && intEnd != null) {
+            return ((objToInteger <= intEnd && objToInteger >= intStart) && (objToInteger / isPositive > 0));
+        } else if (obj != null && obj != "" && isPositive != null) {
+            return (objToInteger / isPositive > 0);
+        } else if (obj != null && obj != "" && intStart != null && intEnd != null) {
+            return (objToInteger <= intEnd && objToInteger >= intStart);
+        } else if (obj != null && obj != "") {
+            return true;
+        } else {
+            return state == null;
+        }
     }
 
     public NumberSchema positive() {

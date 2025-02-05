@@ -8,6 +8,7 @@ public abstract class BaseSchema<T> {
     public Integer intEnd;
     public Integer sizeof;
     public Integer shapeEnabled = 0;
+    public Integer minlength;
 
     public BaseSchema<T> required() {
         if (null != state) {

@@ -4,6 +4,7 @@ import hexlet.code.Validator;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public final class MapSchema extends BaseSchema<Map> {
@@ -21,29 +22,23 @@ public final class MapSchema extends BaseSchema<Map> {
 
     @Override
     public Boolean isValid(Object obj) {
-        if (obj == null && state != null) {
-            return false;
-        }
-        if (obj != null && !(obj instanceof Map)) {
-            return false;
-        }
-
-        if (obj instanceof Map) {
-            objToMap = (Map) obj;
+        var objToMap = new HashMap<Object, Object>();
+        try {
+            objToMap = (HashMap) obj;
+        } catch (Exception e) {
+            throw e;
         }
 
-        if (shapeEnabled == 1 && obj != null) {
-            return nesting();
-        }
-
-        if (sizeof != null) {
-            if (sizeof == objToMap.size()) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
+        if (obj != null && obj != "" && sizeof != null && shapeEnabled == 0) {
+            return (objToMap.size() >= sizeof);
+        } else if (obj != null && obj != ""  && shapeEnabled == 0) {
             return true;
+        } else if (state == null && shapeEnabled == 0) {
+            return true;
+        } else if (shapeEnabled == 1 && obj != null) {
+            return nesting(objToMap);
+        } else {
+            return false;
         }
     }
 
@@ -64,7 +59,7 @@ public final class MapSchema extends BaseSchema<Map> {
         return this;
     }
 
-    public Boolean nesting() {
+    public Boolean nesting(Map objToMap) {
         try {
             var pairOfBoolean = new ArrayList<Boolean>();
             var keys = objToMap.keySet();
