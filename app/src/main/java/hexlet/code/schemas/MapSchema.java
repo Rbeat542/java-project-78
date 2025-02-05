@@ -64,6 +64,11 @@ public final class MapSchema extends BaseSchema<Map> {
         return this;
     }
 
+    @Override
+    public BaseSchema<Map> contains(String str) {
+        return this;
+    }
+
     public Boolean nesting(Map objToMap) {
         var pairOfBoolean = new ArrayList<Boolean>();
         var keys = objToMap.keySet();

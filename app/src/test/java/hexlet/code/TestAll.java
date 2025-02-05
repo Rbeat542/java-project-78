@@ -196,5 +196,22 @@ public final class TestAll {
         expected = false;
         var res3 = schema4.isValid(human3);
         assertTrue(expected.equals(res3));
+
+        schema4 = v.map();
+        Map<String, BaseSchema<String>> schemas2 = new HashMap<>();
+        schemas2.put("firstName", v.string().required().contains("ya"));
+        schemas2.put("lastName", v.string().required().contains("ov"));
+        schema4.shape(schemas2);
+
+        Map<String, String> human4 = new HashMap<>();
+        human4.put("firstName", "Valya");
+        human4.put("lastName", "Iakov");
+
+        expected = true;
+        var res4 = schema4.isValid(human4);
+        assertTrue(expected.equals(res4));
+
+
+
     }
 }

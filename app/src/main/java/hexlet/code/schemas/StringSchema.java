@@ -41,6 +41,7 @@ public final class StringSchema extends BaseSchema<String> {
         return this;
     }
 
+    @Override
     public StringSchema contains(String str) {
         this.str = str;
         return this;

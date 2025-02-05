@@ -26,4 +26,8 @@ public abstract class BaseSchema<T> {
     public BaseSchema<T> minLength(Integer length) {
         return this;
     }
+
+    public BaseSchema<T> contains(String str) {
+        return this;
+    }
 }

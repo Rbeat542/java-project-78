@@ -28,7 +28,6 @@ public final class NumberSchema extends BaseSchema<Integer> {
         } else {
             return true;
         }
-
     }
 
     public NumberSchema positive() {
@@ -48,6 +47,11 @@ public final class NumberSchema extends BaseSchema<Integer> {
 
     @Override
     public BaseSchema<Integer> minLength(Integer length) {
+        return this;
+    }
+
+    @Override
+    public BaseSchema<Integer> contains(String str) {
         return this;
     }
 }
