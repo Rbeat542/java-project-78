@@ -28,14 +28,14 @@ public final class MapSchema extends BaseSchema<Map> {
         } catch (Exception e) {
             throw e;
         }
-
-        if (obj != null && obj != "" && sizeof != null && shapeEnabled == 0) {
-            return (objToMap.size() >= sizeof);
-        } else if (obj != null && obj != ""  && shapeEnabled == 0) {
-            return true;
-        } else if (state == null && shapeEnabled == 0) {
-            return true;
-        } else if (shapeEnabled == 1 && obj != null) {
+        if (obj != null && obj != "" && shapeEnabled == 0) {
+            if (sizeof != null) {
+                return (objToMap.size() >= sizeof);
+            } else if (shapeEnabled == 0) {
+                return true;
+            }
+        }
+        if (shapeEnabled == 1 && obj != null) {
             return nesting(objToMap);
         } else {
             return false;
@@ -60,16 +60,14 @@ public final class MapSchema extends BaseSchema<Map> {
     }
 
     public Boolean nesting(Map objToMap) {
-        try {
             var pairOfBoolean = new ArrayList<Boolean>();
             var keys = objToMap.keySet();
             for (var key : keys) {
                 var schema = schemas.get(key);
-                var value = objToMap.get(key); //make local variable value
+                var value = objToMap.get(key);
                 var v = new Validator();
-                var tempSchema = v.string();
                 try {
-                    Method isValid = tempSchema.getClass().getDeclaredMethod("isValid", Object.class);
+                    Method isValid = v.string().getClass().getDeclaredMethod("isValid", Object.class);
                     pairOfBoolean.add((Boolean) isValid.invoke(schema, value));
                 } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
@@ -79,8 +77,5 @@ public final class MapSchema extends BaseSchema<Map> {
                 return true;
             }
             return false;
-        } catch (Exception e) {
-            throw e;
-        }
     }
 }
