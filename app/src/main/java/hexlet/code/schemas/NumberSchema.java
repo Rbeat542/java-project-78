@@ -1,32 +1,30 @@
 package hexlet.code.schemas;
 
-public class NumberSchema extends BaseSchema {
-
-    public NumberSchema(Integer state, Integer isPositive, Integer intStart, Integer intEnd) {
-        super(null, null, "", "", isPositive, intStart, intEnd, null);
-    }
+public final class NumberSchema extends BaseSchema<Integer> {
 
     @Override
-    public void required() {
-        super.required();
+    public BaseSchema<Integer> required() {
+        return super.required();
     }
 
     @Override
     public Boolean isValid(Object obj) {
-        return super.isValid(obj);
+        Integer valueOfObj = (Integer) obj;
+        if (state != null) {
+            if (obj == null) {
+                return false;
+            }
+            if (intEnd == null && intEnd == null && isPositive == null) {
+                return true;
+            }
+            if (intEnd == null || intEnd == null) {
+                return (valueOfObj / isPositive > 0);
+            }
+            return ((valueOfObj <= intEnd && valueOfObj >= intStart) && (valueOfObj / isPositive > 0));
+        }
+        return true;
     }
 
-    @Override
-    public StringSchema minLength(Integer emptyNum) {
-        return null;
-    }
-
-    @Override
-    public StringSchema contains(String emptyStr) {
-        return null;
-    }
-
-    @Override
     public NumberSchema positive() {
         if (isPositive == null) {
             this.isPositive = 1;
@@ -36,7 +34,6 @@ public class NumberSchema extends BaseSchema {
         return this;
     }
 
-    @Override
     public NumberSchema range(Integer intStart, Integer intEnd) {
         this.intStart = intStart;
         this.intEnd = intEnd;
@@ -44,7 +41,7 @@ public class NumberSchema extends BaseSchema {
     }
 
     @Override
-    public MapSchema sizeof(Integer newSizeOf) {
-        return null;
+    public BaseSchema<Integer> minLength(Integer length) {
+        return this;
     }
 }

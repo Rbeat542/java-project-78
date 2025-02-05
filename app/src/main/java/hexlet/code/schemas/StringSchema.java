@@ -1,45 +1,57 @@
 package hexlet.code.schemas;
 
-public class StringSchema extends BaseSchema {
+public final class StringSchema extends BaseSchema<String> {
+    private Integer minlength;
 
-    public StringSchema(Integer state, Integer minlength, String str, String obj) {
-        super(state, minlength, str, obj, null, null, null, null);
+    public static StringSchema string() { //cg
+        return new StringSchema();
     }
 
     @Override
-    public void required() {
-        super.required();
+    public BaseSchema<String> required() {
+        return super.required();
     }
 
     @Override
     public Boolean isValid(Object obj) {
-        return super.isValid(obj);
+        String objToString;
+        if (state != null) {
+            if (obj == null || "".equals(obj)) {
+                return false;
+            } else {
+                objToString = obj.toString();
+                if (str == null) {
+                    if (minlength != null) {
+                        return objToString.length() >= minlength;
+                    } else {
+                        return true;
+                    }
+                }
+            }
+            if (minlength == null) {
+                return objToString.contains(str);
+            }
+            return (objToString.contains(str) && objToString.length() >= minlength);
+        }
+        if (obj == null || "".equals(obj)) {
+            return true;
+        } else {
+            objToString = obj.toString();
+            if (minlength == null && str != null) {
+                return objToString.contains(str);
+            }
+            return (objToString.length() >= minlength);
+        }
     }
 
     @Override
-    public StringSchema minLength(Integer minlength)  {
-        this.minlength = minlength;
+    public BaseSchema<String> minLength(Integer newlength) {
+        minlength = newlength;
         return this;
     }
 
-    @Override
     public StringSchema contains(String str) {
         this.str = str;
         return this;
-    }
-
-    @Override
-    public NumberSchema positive() {
-        return null;
-    }
-
-    @Override
-    public NumberSchema range(Integer intStart, Integer intEnd) {
-        return null;
-    }
-
-    @Override
-    public MapSchema sizeof(Integer newSizeOf) {
-        return null;
     }
 }
