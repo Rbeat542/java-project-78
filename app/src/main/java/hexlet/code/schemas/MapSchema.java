@@ -66,22 +66,22 @@ public final class MapSchema extends BaseSchema<Map> {
     }
 
     public Boolean nesting(Map objToMap) {
-            var pairOfBoolean = new ArrayList<Boolean>();
-            var keys = objToMap.keySet();
-            for (var key : keys) {
-                var schema = schemas.get(key);
-                var value = objToMap.get(key);
-                var v = new Validator();
-                try {
-                    Method isValid = v.string().getClass().getDeclaredMethod("isValid", Object.class);
-                    pairOfBoolean.add((Boolean) isValid.invoke(schema, value));
-                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
-                }
+        var pairOfBoolean = new ArrayList<Boolean>();
+        var keys = objToMap.keySet();
+        for (var key : keys) {
+            var schema = schemas.get(key);
+            var value = objToMap.get(key);
+            var v = new Validator();
+            try {
+                Method isValid = v.string().getClass().getDeclaredMethod("isValid", Object.class);
+                pairOfBoolean.add((Boolean) isValid.invoke(schema, value));
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
             }
-            if (pairOfBoolean.get(0) && pairOfBoolean.get(1)) {
-                return true;
-            }
-            return false;
+        }
+        if (pairOfBoolean.get(0) && pairOfBoolean.get(1)) {
+            return true;
+        }
+        return false;
     }
 }
