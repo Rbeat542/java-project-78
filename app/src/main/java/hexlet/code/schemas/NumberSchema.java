@@ -15,19 +15,20 @@ public final class NumberSchema extends BaseSchema<Integer> {
         } catch (Exception e) {
             throw e;
         }
-        if (obj != null && obj != "") {
-            if (isPositive != null && intStart != null && intEnd != null) {
-                return ((objToInteger <= intEnd && objToInteger >= intStart) && (objToInteger / isPositive > 0));
-            } else if (isPositive != null) {
-                return (objToInteger / isPositive > 0);
-            } else if (intStart != null && intEnd != null) {
-                return (objToInteger <= intEnd && objToInteger >= intStart);
-            } else {
-                return true;
-            }
-        } else {
+
+        if (obj == null || obj == "") {
             return state == null;
         }
+        if (isPositive != null && intStart != null && intEnd != null) {
+            return ((objToInteger <= intEnd && objToInteger >= intStart) && (objToInteger / isPositive > 0));
+        } else if (isPositive != null) {
+            return (objToInteger / isPositive > 0);
+        } else if (intStart != null && intEnd != null) {
+            return (objToInteger <= intEnd && objToInteger >= intStart);
+        } else {
+            return true;
+        }
+
     }
 
     public NumberSchema positive() {

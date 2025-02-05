@@ -20,18 +20,18 @@ public final class StringSchema extends BaseSchema<String> {
         } catch (Exception e) {
             throw e;
         }
-        if (obj != null && obj != "") {
-            if (str != null && minlength != null) {
-                return (objToString.contains(str) && objToString.length() >= minlength);
-            } else if (str != null) {
-                return objToString.contains(str);
-            } else if (minlength != null) {
-                return (objToString.length() >= minlength);
-            } else {
-                return true;
-            }
-        } else {
+
+        if (obj == null || obj == "") {
             return state == null;
+        }
+        if (str != null && minlength != null) {
+            return (objToString.contains(str) && objToString.length() >= minlength);
+        } else if (str != null) {
+            return objToString.contains(str);
+        } else if (minlength != null) {
+            return (objToString.length() >= minlength);
+        } else {
+            return true;
         }
     }
 

@@ -28,13 +28,19 @@ public final class MapSchema extends BaseSchema<Map> {
         } catch (Exception e) {
             throw e;
         }
-        if (obj != null && obj != "" && shapeEnabled == 0) {
+
+        if ((obj == null || obj == "") && shapeEnabled == 0) {
+            return state == null;
+        }
+
+        if (shapeEnabled == 0) {
             if (sizeof != null) {
                 return (objToMap.size() >= sizeof);
-            } else if (shapeEnabled == 0) {
+            } else {
                 return true;
             }
         }
+
         if (shapeEnabled == 1 && obj != null) {
             return nesting(objToMap);
         } else {
