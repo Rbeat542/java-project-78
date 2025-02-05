@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class MapSchema extends BaseSchema<Map> {
-    private Map objToMap;
     private Map schemas;
 
     public static MapSchema number() {

@@ -1,5 +1,6 @@
 package hexlet.code.schemas;
 
+@SuppressWarnings({"VisibilityModifier", "DesignForExtension"})
 public abstract class BaseSchema<T> {
     public Integer state;
     public String str;

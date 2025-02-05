@@ -95,7 +95,7 @@
     <!--   <property name="headerFile" value="${checkstyle.header.file}"/> -->
     <!--   <property name="fileExtensions" value="java"/> -->
     <!-- </module> -->
-
+    <module name="SuppressWarningsFilter"/>
     <module name="TreeWalker">
 
         <!-- Checks for Javadoc comments.                     -->
@@ -106,7 +106,6 @@
         <!-- <module name="JavadocVariable"/> -->
         <module name="JavadocStyle"/>
         <!-- <module name="MissingJavadocMethod"/> -->
-
         <!-- Checks for Naming Conventions.                  -->
         <!-- See https://checkstyle.org/config_naming.html -->
         <module name="ConstantName"/>
@@ -118,6 +117,7 @@
         <module name="ParameterName"/>
         <module name="StaticVariableName"/>
         <module name="TypeName"/>
+        <module name="SuppressWarningsHolder"/>
 
         <!-- Checks for imports                              -->
         <!-- See https://checkstyle.org/config_import.html -->

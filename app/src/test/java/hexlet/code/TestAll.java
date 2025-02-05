@@ -7,17 +7,18 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TestAll {
+@SuppressWarnings("checkstyle:MagicNumber")
+public final class TestAll {
     private Validator v;
     private Boolean expected;
 
     @BeforeEach
-    public void Preparation() {
+    public void preparation() {
         v = new Validator();
     }
 
     @Test
-    public void StringTest() {
+    public void stringTest() {
         var schema = v.string();
 
         expected = true;
@@ -73,7 +74,7 @@ public class TestAll {
     }
 
     @Test
-    public void NumberTest() {
+    public void numberTest() {
         var schema2 = v.number();
 
         expected = true;
@@ -130,7 +131,7 @@ public class TestAll {
     }
 
     @Test
-    public void MapTest() {
+    public void mapTest() {
         var schema3 = v.map();
 
         expected = true;
@@ -165,7 +166,7 @@ public class TestAll {
     }
 
     @Test
-    public void ExtendedMapTest() {
+    public void extendedMapTest() {
         var schema4 = v.map();
         Map<String, BaseSchema<String>> schemas = new HashMap<>();
         schemas.put("firstName", v.string().required());
@@ -184,7 +185,7 @@ public class TestAll {
         human2.put("firstName", "John");
         human2.put("lastName", null);
 
-        expected =false;
+        expected = false;
         var res2 = schema4.isValid(human2);
         assertTrue(expected.equals(res2));
 
@@ -192,7 +193,7 @@ public class TestAll {
         human3.put("firstName", "Anna");
         human3.put("lastName", "B");
 
-        expected =false;
+        expected = false;
         var res3 = schema4.isValid(human3);
         assertTrue(expected.equals(res3));
     }
