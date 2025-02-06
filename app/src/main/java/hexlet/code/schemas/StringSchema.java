@@ -2,14 +2,18 @@ package hexlet.code.schemas;
 
 public final class StringSchema extends BaseSchema<String> {
     private Integer minlength;
+    private String str;
 
     public static StringSchema string() { //cg
         return new StringSchema();
     }
 
-    @Override
     public BaseSchema<String> required() {
-        return super.required();
+        if (null != getState()) {
+            setState(-getState());
+        }
+        setState(1);
+        return this;
     }
 
     @Override
@@ -20,13 +24,13 @@ public final class StringSchema extends BaseSchema<String> {
         } catch (Exception e) {
             throw e;
         }
-
         if (obj == null || obj == "") {
-            return state == null;
+            return getState() == null;
         }
         if (str != null && minlength != null) {
             return (objToString.contains(str) && objToString.length() >= minlength);
         } else if (str != null) {
+
             return objToString.contains(str);
         } else if (minlength != null) {
             return (objToString.length() >= minlength);
@@ -42,8 +46,8 @@ public final class StringSchema extends BaseSchema<String> {
     }
 
     @Override
-    public StringSchema contains(String str) {
-        this.str = str;
+    public StringSchema contains(String strNew) {
+        this.str = strNew;
         return this;
     }
 }

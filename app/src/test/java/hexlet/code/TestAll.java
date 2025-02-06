@@ -73,6 +73,7 @@ public final class TestAll {
         assertTrue(expected.equals(res12));
     }
 
+
     @Test
     public void numberTest() {
         var schema2 = v.number();
@@ -210,8 +211,5 @@ public final class TestAll {
         expected = true;
         var res4 = schema4.isValid(human4);
         assertTrue(expected.equals(res4));
-
-
-
     }
 }

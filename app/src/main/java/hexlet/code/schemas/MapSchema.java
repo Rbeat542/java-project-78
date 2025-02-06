@@ -9,14 +9,19 @@ import java.util.Map;
 
 public final class MapSchema extends BaseSchema<Map> {
     private Map schemas;
+    private Integer shapeEnabled = 0;
+    private Integer sizeof;
 
     public static MapSchema number() {
         return new MapSchema();
     }
 
-    @Override
     public BaseSchema<Map> required() {
-        return super.required();
+        if (null != getState()) {
+            setState(-getState());
+        }
+        setState(1);
+        return this;
     }
 
     @Override
@@ -29,7 +34,7 @@ public final class MapSchema extends BaseSchema<Map> {
         }
 
         if ((obj == null || obj == "") && shapeEnabled == 0) {
-            return state == null;
+            return getState() == null;
         }
 
         if (shapeEnabled == 0) {

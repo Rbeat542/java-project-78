@@ -1,10 +1,17 @@
 package hexlet.code.schemas;
 
 public final class NumberSchema extends BaseSchema<Integer> {
+    private Integer isPositive;
+    private Integer intStart;
+    private Integer intEnd;
 
-    @Override
+
     public BaseSchema<Integer> required() {
-        return super.required();
+        if (null != getState()) {
+            setState(-getState());
+        }
+        setState(1);
+        return this;
     }
 
     @Override
@@ -17,7 +24,7 @@ public final class NumberSchema extends BaseSchema<Integer> {
         }
 
         if (obj == null || obj == "") {
-            return state == null;
+            return getState() == null;
         }
         if (isPositive != null && intStart != null && intEnd != null) {
             return ((objToInteger <= intEnd && objToInteger >= intStart) && (objToInteger / isPositive > 0));
@@ -39,9 +46,9 @@ public final class NumberSchema extends BaseSchema<Integer> {
         return this;
     }
 
-    public NumberSchema range(Integer intStart, Integer intEnd) {
-        this.intStart = intStart;
-        this.intEnd = intEnd;
+    public NumberSchema range(Integer intStartNew, Integer intEndNew) {
+        this.intStart = intStartNew;
+        this.intEnd = intEndNew;
         return this;
     }
 

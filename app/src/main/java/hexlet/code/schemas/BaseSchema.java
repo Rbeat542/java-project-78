@@ -1,33 +1,21 @@
 package hexlet.code.schemas;
 
-@SuppressWarnings({"VisibilityModifier", "DesignForExtension"})
 public abstract class BaseSchema<T> {
-    public Integer state;
-    public String str;
-    public Integer isPositive;
-    public Integer intStart;
-    public Integer intEnd;
-    public Integer sizeof;
-    public Integer shapeEnabled = 0;
-    public Integer minlength;
+    private Integer state;
 
-    public BaseSchema<T> required() {
-        if (null != state) {
-            state = -state;
-        }
-        state = 1;
-        return this;
+    public final Integer getState() {
+        return state;
     }
 
-    public Boolean isValid(Object obj) {
-        return true;
+    public final void setState(Integer state) {
+        this.state = state;
     }
 
-    public BaseSchema<T> minLength(Integer length) {
-        return this;
-    }
+    public abstract BaseSchema<T> required();
 
-    public BaseSchema<T> contains(String someString) {
-        return this;
-    }
+    public abstract Boolean isValid(Object obj);
+
+    public abstract BaseSchema<T> minLength(Integer length);
+
+    public abstract BaseSchema<T> contains(String someString);
 }
