@@ -7,8 +7,8 @@ public abstract class BaseSchema<T> {
         return state;
     }
 
-    public final void setState(Integer state) {
-        this.state = state;
+    public final void setState(Integer stateNew) {
+        this.state = stateNew;
     }
 
     public abstract BaseSchema<T> required();
