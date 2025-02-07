@@ -4,11 +4,11 @@ public final class StringSchema extends BaseSchema<String> {
     private Integer minlength;
     private String str;
 
-    public static StringSchema string() { //cg
+    public static StringSchema string() {
         return new StringSchema();
     }
 
-    public BaseSchema<String> required() {
+    public StringSchema required() {
         if (null != getState()) {
             setState(-getState());
         }
@@ -16,38 +16,15 @@ public final class StringSchema extends BaseSchema<String> {
         return this;
     }
 
-    @Override
-    public Boolean isValid(Object obj) {
-        String objToString = "";
-        try {
-            objToString = (String) obj;
-        } catch (Exception e) {
-            throw e;
-        }
-        if (obj == null || obj == "") {
-            return getState() == null;
-        }
-        if (str != null && minlength != null) {
-            return (objToString.contains(str) && objToString.length() >= minlength);
-        } else if (str != null) {
-
-            return objToString.contains(str);
-        } else if (minlength != null) {
-            return (objToString.length() >= minlength);
-        } else {
-            return true;
-        }
-    }
-
-    @Override
-    public BaseSchema<String> minLength(Integer newlength) {
+    public StringSchema minLength(Integer newlength) {
         this.minlength = newlength;
+        addRules(obj -> obj != null && obj != "" && obj.length() >= minlength);
         return this;
     }
 
-    @Override
     public StringSchema contains(String strNew) {
         this.str = strNew;
+        addRules(obj -> obj != null && obj != null && obj.contains(str));
         return this;
     }
 }

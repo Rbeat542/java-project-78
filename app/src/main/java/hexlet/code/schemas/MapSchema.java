@@ -1,22 +1,34 @@
 package hexlet.code.schemas;
 
 import hexlet.code.Validator;
-import java.lang.reflect.InvocationTargetException;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public final class MapSchema extends BaseSchema<Map> {
-    private Map schemas;
+    private Map schemas = new HashMap<>();
     private Integer shapeEnabled = 0;
     private Integer sizeof;
+
+    public Integer getShapeEnabled() {
+        return shapeEnabled;
+    }
+
+    public void setShapeEnabled(Integer newValue) {
+        this.shapeEnabled = newValue;
+    }
 
     public static MapSchema number() {
         return new MapSchema();
     }
 
-    public BaseSchema<Map> required() {
+    public Map getSchemas() {
+        return schemas;
+    }
+
+    public MapSchema required() {
         if (null != getState()) {
             setState(-getState());
         }
@@ -24,69 +36,35 @@ public final class MapSchema extends BaseSchema<Map> {
         return this;
     }
 
-    @Override
-    public Boolean isValid(Object obj) {
-        var objToMap = new HashMap<Object, Object>();
-        try {
-            objToMap = (HashMap) obj;
-        } catch (Exception e) {
-            throw e;
-        }
-
-        if ((obj == null || obj == "") && shapeEnabled == 0) {
-            return getState() == null;
-        }
-
-        if (shapeEnabled == 0) {
-            if (sizeof != null) {
-                return (objToMap.size() >= sizeof);
-            } else {
-                return true;
-            }
-        }
-
-        if (shapeEnabled == 1 && obj != null) {
-            return nesting(objToMap);
-        } else {
-            return false;
-        }
-    }
-
     public MapSchema sizeof(Integer newSizeOf) {
         this.sizeof = newSizeOf;
+        addRules(obj -> obj != null && obj.size() >= sizeof);
         return this;
     }
 
     public void shape(Map newMap) {
-        if (shapeEnabled == 0) {
-            shapeEnabled = 1;
-            schemas = newMap;
+        if (getShapeEnabled() == 0) {
+            setShapeEnabled(1);
+            this.schemas = newMap;
+            addRules(obj -> obj != null && (nesting(obj)));
         }
     }
 
-    @Override
-    public BaseSchema<Map> minLength(Integer length) {
-        return this;
-    }
-
-    @Override
-    public BaseSchema<Map> contains(String str) {
-        return this;
-    }
-
-    public Boolean nesting(Map objToMap) {
+    public Boolean nesting(Map obj) {
         var pairOfBoolean = new ArrayList<Boolean>();
-        var keys = objToMap.keySet();
-        for (var key : keys) {
-            var schema = schemas.get(key);
-            var value = objToMap.get(key);
-            var v = new Validator();
-            try {
-                Method isValid = v.string().getClass().getDeclaredMethod("isValid", Object.class);
+        var keys = obj.keySet();
+        try {
+            for (var key : keys) {
+               // MapSchema mapSchema = new MapSchema();
+                var xx = this.getSchemas();
+                var schema = xx.get(key);
+                var value = obj.get(key);
+                var v = new Validator();
+                Method isValid = BaseSchema.class.getDeclaredMethod("isValid", Object.class);
                 pairOfBoolean.add((Boolean) isValid.invoke(schema, value));
-            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         if (pairOfBoolean.get(0) && pairOfBoolean.get(1)) {
             return true;

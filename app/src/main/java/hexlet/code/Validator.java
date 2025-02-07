@@ -9,7 +9,6 @@ public final class Validator {
         return new StringSchema();
     }
 
-
     public NumberSchema number() {
         return new NumberSchema();
     }

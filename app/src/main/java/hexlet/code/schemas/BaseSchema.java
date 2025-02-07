@@ -1,6 +1,11 @@
 package hexlet.code.schemas;
 
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.function.Predicate;
+
 public abstract class BaseSchema<T> {
+    private ArrayList<Predicate<T>> rules = new ArrayList<Predicate<T>>();
     private Integer state;
 
     public final Integer getState() {
@@ -13,9 +18,18 @@ public abstract class BaseSchema<T> {
 
     public abstract BaseSchema<T> required();
 
-    public abstract Boolean isValid(Object obj);
+    public final void addRules(Predicate<T> newRule) {
+        rules.add(newRule);
+    }
 
-    public abstract BaseSchema<T> minLength(Integer length);
-
-    public abstract BaseSchema<T> contains(String someString);
+    public final Boolean isValid(T obj) {
+        if ((obj == null || obj == "") && state != null) {
+            return false;
+        }
+        if ((obj == null || obj == "") || (obj instanceof Map && ((Map) obj).isEmpty())) {
+            return true;
+        } else {
+            return this.rules.stream().allMatch(rule -> rule.test(obj));
+        }
+    }
 }
