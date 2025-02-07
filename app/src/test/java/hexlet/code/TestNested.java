@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings("checkstyle:MagicNumber")
 public final class TestNested {
@@ -36,7 +35,7 @@ public final class TestNested {
         expected = true;
 
         var res1 = schema.isValid(human1);
-		assertEquals(expected, res1);
+        assertEquals(expected, res1);
     }
 
     @Test
@@ -52,7 +51,7 @@ public final class TestNested {
         expected = false;
 
         var res2 = schema.isValid(human2);
-		assertEquals(expected, res2);
+        assertEquals(expected, res2);
     }
 
     @Test
@@ -68,7 +67,7 @@ public final class TestNested {
         expected = false;
 
         var res3 = schema.isValid(human3);
-		assertEquals(expected, res3);
+        assertEquals(expected, res3);
     }
 
     @Test
@@ -84,6 +83,6 @@ public final class TestNested {
         expected = true;
 
         var res4 = schema.isValid(human4);
-		assertEquals(expected, res4);
+        assertEquals(expected, res4);
     }
 }

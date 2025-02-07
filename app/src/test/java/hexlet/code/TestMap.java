@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings("checkstyle:MagicNumber")
 public final class TestMap {
@@ -26,7 +25,7 @@ public final class TestMap {
 
         expected = true;
 
-		assertEquals(expected, res1);
+        assertEquals(expected, res1);
     }
 
     @Test
@@ -36,7 +35,7 @@ public final class TestMap {
 
         expected = false;
 
-		assertEquals(expected, res2);
+        assertEquals(expected, res2);
     }
 
     @Test
@@ -46,7 +45,7 @@ public final class TestMap {
 
         expected = true;
 
-		assertEquals(expected, res3);
+        assertEquals(expected, res3);
     }
 
     @Test
@@ -58,7 +57,7 @@ public final class TestMap {
 
         expected = true;
 
-		assertEquals(expected, res4);
+        assertEquals(expected, res4);
     }
 
     @Test
@@ -71,7 +70,7 @@ public final class TestMap {
 
         expected = false;
 
-		assertEquals(expected, res5);
+        assertEquals(expected, res5);
     }
 
     @Test
@@ -85,6 +84,6 @@ public final class TestMap {
 
         expected = true;
 
-		assertEquals(expected, res6);
+        assertEquals(expected, res6);
     }
 }

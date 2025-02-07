@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings("checkstyle:MagicNumber")
 public final class TestInteger {
@@ -35,7 +34,7 @@ public final class TestInteger {
 
         expected = true;
 
-		assertEquals(expected, res2);
+        assertEquals(expected, res2);
     }
 
     @Test
@@ -44,7 +43,7 @@ public final class TestInteger {
 
         expected = true;
 
-        assertTrue(expected.equals(res3));
+        assertEquals(expected, res3);
     }
 
     @Test
@@ -63,7 +62,7 @@ public final class TestInteger {
 
         expected = true;
 
-		assertEquals(expected, res5);
+        assertEquals(expected, res5);
     }
 
     @Test
@@ -73,7 +72,7 @@ public final class TestInteger {
 
         expected = false;
 
-		assertEquals(expected, res6);
+        assertEquals(expected, res6);
     }
 
     @Test
@@ -83,7 +82,7 @@ public final class TestInteger {
 
         expected = false;
 
-		assertEquals(expected, res8);
+        assertEquals(expected, res8);
     }
 
     @Test
@@ -103,7 +102,7 @@ public final class TestInteger {
 
         expected = true;
 
-		assertEquals(expected, res11);
+        assertEquals(expected, res11);
     }
 
     @Test
@@ -113,7 +112,7 @@ public final class TestInteger {
 
         expected = false;
 
-		assertEquals(expected, res12);
+        assertEquals(expected, res12);
     }
 
     @Test

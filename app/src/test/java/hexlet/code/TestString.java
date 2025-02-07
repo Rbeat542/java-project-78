@@ -5,7 +5,6 @@ import hexlet.code.schemas.StringSchema;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings("checkstyle:MagicNumber")
 public final class TestString {
@@ -25,7 +24,7 @@ public final class TestString {
 
         expected = true;
 
-		assertEquals(expected, res1);
+        assertEquals(expected, res1);
     }
 
     @Test
@@ -34,7 +33,7 @@ public final class TestString {
 
         expected = true;
 
-		assertEquals(expected, res2);
+        assertEquals(expected, res2);
     }
 
 
@@ -45,7 +44,7 @@ public final class TestString {
 
         expected = false;
 
-		assertEquals(expected, res3);
+        assertEquals(expected, res3);
     }
 
     @Test
@@ -55,7 +54,7 @@ public final class TestString {
 
         expected = false;
 
-		assertEquals(expected, res4);
+        assertEquals(expected, res4);
     }
 
     @Test
@@ -65,7 +64,7 @@ public final class TestString {
 
         expected = true;
 
-		assertEquals(expected, res5);
+        assertEquals(expected, res5);
     }
 
     @Test
@@ -75,7 +74,7 @@ public final class TestString {
 
         expected = true;
 
-		assertEquals(expected, res6);
+        assertEquals(expected, res6);
     }
 
     @Test
@@ -85,7 +84,7 @@ public final class TestString {
 
         expected = true;
 
-		assertEquals(expected, res7);
+        assertEquals(expected, res7);
     }
 
     @Test
@@ -95,7 +94,7 @@ public final class TestString {
 
         expected = true;
 
-		assertEquals(expected, res8);
+        assertEquals(expected, res8);
     }
 
     @Test
@@ -105,7 +104,7 @@ public final class TestString {
         expected = false;
 
         var res9 = schema.contains("whatthe").isValid("what does the fox say");
-		assertEquals(expected, res9);
+        assertEquals(expected, res9);
     }
 
     @Test
@@ -116,7 +115,7 @@ public final class TestString {
 
         expected = false;
 
-		assertEquals(expected, res10);
+        assertEquals(expected, res10);
     }
 
     @Test
@@ -126,7 +125,7 @@ public final class TestString {
 
         expected = false;
 
-		assertEquals(expected, res11);
+        assertEquals(expected, res11);
     }
 
     @Test
@@ -136,6 +135,6 @@ public final class TestString {
 
         expected = true;
 
-		assertEquals(expected, res12);
+        assertEquals(expected, res12);
     }
 }
