@@ -38,7 +38,7 @@ public final class MapSchema extends BaseSchema<Map> {
 
     public MapSchema sizeof(Integer newSizeOf) {
         this.sizeof = newSizeOf;
-        addRules(obj -> obj != null && obj.size() >= sizeof);
+        addRules(obj -> (obj != null && !((Map) obj).isEmpty()) && obj.size() >= sizeof);
         return this;
     }
 

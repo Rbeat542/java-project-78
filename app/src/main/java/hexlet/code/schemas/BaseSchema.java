@@ -1,7 +1,6 @@
 package hexlet.code.schemas;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.function.Predicate;
 
 public abstract class BaseSchema<T> {
@@ -26,7 +25,7 @@ public abstract class BaseSchema<T> {
         if ((obj == null || obj == "") && state != null) {
             return false;
         }
-        if ((obj == null || obj == "") || (obj instanceof Map && ((Map) obj).isEmpty())) {
+        if (obj == null || obj == "") {
             return true;
         } else {
             return this.rules.stream().allMatch(rule -> rule.test(obj));

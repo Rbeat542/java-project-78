@@ -7,7 +7,6 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SuppressWarnings("checkstyle:MagicNumber")
 public final class TestMap {
     private Validator v;
     private Boolean expected;

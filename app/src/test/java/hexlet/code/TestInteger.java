@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SuppressWarnings("checkstyle:MagicNumber")
 public final class TestInteger {
     private Boolean expected;
     private Validator v;

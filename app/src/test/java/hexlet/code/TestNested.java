@@ -9,7 +9,6 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SuppressWarnings("checkstyle:MagicNumber")
 public final class TestNested {
     private Validator v;
     private Boolean expected;
