@@ -55,7 +55,6 @@ public final class MapSchema extends BaseSchema<Map> {
         var keys = obj.keySet();
         try {
             for (var key : keys) {
-               // MapSchema mapSchema = new MapSchema();
                 var xx = this.getSchemas();
                 var schema = xx.get(key);
                 var value = obj.get(key);

@@ -22,7 +22,7 @@ public final class TestNested {
     }
 
     @Test
-    public void testNested() {
+    public void testNestedMapWithCorrectValuesAndLength() {
         Map<String, BaseSchema<String>> schemas1 = new HashMap<>();
         schemas1.put("firstName", v.string().required());
         schemas1.put("lastName", v.string().required().minLength(2));
@@ -31,14 +31,13 @@ public final class TestNested {
         human1.put("firstName", "John");
         human1.put("lastName", "Smith");
 
-        expected = true;
-
         var res1 = schema.isValid(human1);
-        assertEquals(expected, res1);
+
+        assertEquals(true, res1);
     }
 
     @Test
-    public void testNested2() {
+    public void testNestedMapWithNullValue() {
         Map<String, BaseSchema<String>> schemas2 = new HashMap<>();
         schemas2.put("firstName", v.string().required());
         schemas2.put("lastName", v.string().required().minLength(2));
@@ -47,14 +46,13 @@ public final class TestNested {
         human2.put("firstName", "John");
         human2.put("lastName", null);
 
-        expected = false;
-
         var res2 = schema.isValid(human2);
-        assertEquals(expected, res2);
+
+        assertEquals(false, res2);
     }
 
     @Test
-    public void testNested3() {
+    public void testNestedMapWithIncorrectLength() {
         Map<String, BaseSchema<String>> schemas3 = new HashMap<>();
         schemas3.put("firstName", v.string().required());
         schemas3.put("lastName", v.string().required().minLength(2));
@@ -63,14 +61,13 @@ public final class TestNested {
         human3.put("firstName", "Anna");
         human3.put("lastName", "B");
 
-        expected = false;
-
         var res3 = schema.isValid(human3);
-        assertEquals(expected, res3);
+
+        assertEquals(false, res3);
     }
 
     @Test
-    public void testNested4() {
+    public void testNestedMapWithCorrectValuesAndContains() {
         Map<String, BaseSchema<String>> schemas4 = new HashMap<>();
         schemas4.put("firstName", v.string().required().contains("ya"));
         schemas4.put("lastName", v.string().required().contains("ov"));
@@ -79,9 +76,8 @@ public final class TestNested {
         human4.put("firstName", "Valya");
         human4.put("lastName", "Iakov");
 
-        expected = true;
-
         var res4 = schema.isValid(human4);
-        assertEquals(expected, res4);
+
+        assertEquals(true, res4);
     }
 }

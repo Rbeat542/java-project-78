@@ -1,10 +1,11 @@
 package hexlet.code.schemas;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 public abstract class BaseSchema<T> {
-    private ArrayList<Predicate<T>> rules = new ArrayList<Predicate<T>>();
+    private final List<Predicate<T>> rules = new ArrayList<Predicate<T>>();
     private Integer state;
 
     public final Integer getState() {
@@ -22,10 +23,10 @@ public abstract class BaseSchema<T> {
     }
 
     public final Boolean isValid(T obj) {
-        if ((obj == null || obj == "") && state != null) {
+        if ((obj == null || obj.equals("")) && state != null) {
             return false;
         }
-        if (obj == null || obj == "") {
+        if (obj == null || obj.equals("")) {
             return true;
         } else {
             return this.rules.stream().allMatch(rule -> rule.test(obj));

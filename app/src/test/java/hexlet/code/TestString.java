@@ -2,8 +2,13 @@ package hexlet.code;
 
 import org.junit.jupiter.api.BeforeEach;
 import hexlet.code.schemas.StringSchema;
-import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class TestString {
@@ -17,123 +22,78 @@ public final class TestString {
         schema = v.string();
     }
 
-    @Test
-    public void stringTest1() {
-        var res1 = schema.isValid("");
-
-        expected = true;
-
-        assertEquals(expected, res1);
+    @ParameterizedTest
+    @ValueSource(strings = {"", "what does the fox say", "hexlet"})
+    public void testNotNullStringAndRequiredIsOff(String input) {
+        assertTrue(schema.isValid(input));
     }
 
-    @Test
-    public void stringTest2() {
-        var res2 = schema.isValid(null);
-
-        expected = true;
-
-        assertEquals(expected, res2);
-    }
-
-
-    @Test
-    public void stringTest3() {
-        schema.required();
-        var res3 = schema.isValid(null);
-
-        expected = false;
-
-        assertEquals(expected, res3);
-    }
-
-    @Test
-    public void stringTest4() {
-        schema.required();
-        var res4 = schema.isValid("");
-
-        expected = false;
-
-        assertEquals(expected, res4);
-    }
-
-    @Test
-    public void stringTest5() {
-        schema.required();
-        var res5 = schema.isValid("what does the fox say");
-
-        expected = true;
-
-        assertEquals(expected, res5);
-    }
-
-    @Test
-    public void stringTest6() {
-        schema.required();
-        var res6 = schema.isValid("hexlet");
-
-        expected = true;
-
-        assertEquals(expected, res6);
-    }
-
-    @Test
-    public void stringTest7() {
-        schema.required();
-        var res7 = schema.contains("wh").isValid("what does the fox say");
-
-        expected = true;
-
-        assertEquals(expected, res7);
-    }
-
-    @Test
-    public void stringTest8() {
-        schema.required();
-        var res8 = schema.contains("what").isValid("what does the fox say");
-
-        expected = true;
-
-        assertEquals(expected, res8);
-    }
-
-    @Test
-    public void stringTest9() {
+    @ParameterizedTest
+    @ValueSource(strings = {"what does the fox say", "hexlet"})
+    public void testNotNullStringAndRequiredIsOn(String input) {
         schema.required();
 
-        expected = false;
-
-        var res9 = schema.contains("whatthe").isValid("what does the fox say");
-        assertEquals(expected, res9);
+        assertTrue(schema.isValid(input));
     }
 
-    @Test
-    public void stringTest10() {
-        schema.required();
-        schema.contains("whatthe");
-        var res10 = schema.isValid("what does the fox say");
-
-        expected = false;
-
-        assertEquals(expected, res10);
+    @ParameterizedTest
+    @NullAndEmptySource
+    void testShouldReturnTrueForNullAndEmptyStrings(String input) {
+        assertTrue(schema.isValid(input));
     }
 
-    @Test
-    public void stringTest11() {
+    @ParameterizedTest
+    @NullAndEmptySource
+    void testShouldReturnFalseForNullAndEmptyStrings(String input) {
         schema.required();
-        var res11 = schema.minLength(10).minLength(4).isValid("Het");
 
-        expected = false;
-
-        assertEquals(expected, res11);
+        assertFalse(schema.isValid(input));
     }
 
-    @Test
-    public void stringTest12() {
-        schema.required();
-        var res12 = schema.minLength(10).minLength(4).isValid("Hexl");
 
-        expected = true;
+    @ParameterizedTest
+    @CsvSource({"wh,what does the fox say", "what,what does the fox say"})
+    void testShouldReturnFalseForCorrectWord(ArgumentsAccessor argumentsAccessor) {
+        String word = argumentsAccessor.getString(0);
+        String string = (String) argumentsAccessor.get(1);
 
-        assertEquals(expected, res12);
+        var res = schema.contains(word).isValid(string);
+
+        assertEquals(true, res);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"whatth,what does the fox say", "sss,what does the fox say"})
+    void testShouldReturnFalseForIncorrectWord(ArgumentsAccessor argumentsAccessor) {
+        String word = argumentsAccessor.getString(0);
+        String string = (String) argumentsAccessor.get(1);
+
+        var res = schema.contains(word).isValid(string);
+
+        assertEquals(false, res);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"10, 3, Het", "10, 3, Warlord"})
+    void testShouldReturnTrueForCorrectMinLength(ArgumentsAccessor argumentsAccessor) {
+        Integer firstSet = argumentsAccessor.getInteger(0);
+        Integer secondSet = argumentsAccessor.getInteger(1);
+        String string = (String) argumentsAccessor.get(2);
+
+        var res = schema.minLength(firstSet).minLength(secondSet).isValid(string);
+
+        assertEquals(true, res);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"10, 4, Het", "10, 9, Warlord"})
+    void testShouldReturnFalseForWrongMinLength(ArgumentsAccessor argumentsAccessor) {
+        Integer firstSet = argumentsAccessor.getInteger(0);
+        Integer secondSet = argumentsAccessor.getInteger(1);
+        String string = (String) argumentsAccessor.get(2);
+
+        var res = schema.minLength(firstSet).minLength(secondSet).isValid(string);
+
+        assertEquals(false, res);
     }
 }
